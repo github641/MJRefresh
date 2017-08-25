@@ -340,16 +340,16 @@
 		2DB2E9EB1BECBE6700D58F6A /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2DB2E9EC1BECBE6700D58F6A /* MJRefreshAutoFooter.h */,
-				2DB2E9ED1BECBE6700D58F6A /* MJRefreshAutoFooter.m */,
-				2DB2E9EE1BECBE6700D58F6A /* MJRefreshBackFooter.h */,
-				2DB2E9EF1BECBE6700D58F6A /* MJRefreshBackFooter.m */,
 				2DB2E9F01BECBE6700D58F6A /* MJRefreshComponent.h */,
 				2DB2E9F11BECBE6700D58F6A /* MJRefreshComponent.m */,
-				2DB2E9F21BECBE6700D58F6A /* MJRefreshFooter.h */,
-				2DB2E9F31BECBE6700D58F6A /* MJRefreshFooter.m */,
 				2DB2E9F41BECBE6700D58F6A /* MJRefreshHeader.h */,
 				2DB2E9F51BECBE6700D58F6A /* MJRefreshHeader.m */,
+				2DB2E9F21BECBE6700D58F6A /* MJRefreshFooter.h */,
+				2DB2E9F31BECBE6700D58F6A /* MJRefreshFooter.m */,
+				2DB2E9EE1BECBE6700D58F6A /* MJRefreshBackFooter.h */,
+				2DB2E9EF1BECBE6700D58F6A /* MJRefreshBackFooter.m */,
+				2DB2E9EC1BECBE6700D58F6A /* MJRefreshAutoFooter.h */,
+				2DB2E9ED1BECBE6700D58F6A /* MJRefreshAutoFooter.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";

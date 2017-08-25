@@ -9,6 +9,9 @@
 #import "MJRefreshStateHeader.h"
 
 @interface MJRefreshNormalHeader : MJRefreshStateHeader
+
+// lzy170825注：正好一个箭头，一个指示器圈，是状态显示的显示
+
 @property (weak, nonatomic, readonly) UIImageView *arrowView;
 /** 菊花的样式 */
 @property (assign, nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle;

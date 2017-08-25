@@ -17,7 +17,7 @@
 
 /** 这个key用来存储上一次下拉刷新成功的时间 */
 @property (copy, nonatomic) NSString *lastUpdatedTimeKey;
-/** 上一次下拉刷新成功的时间 */
+/** 上一次下拉刷新成功的时间 */ // lzy170825注：这个时间存在ud里面
 @property (strong, nonatomic, readonly) NSDate *lastUpdatedTime;
 
 /** 忽略多少scrollView的contentInset的top */

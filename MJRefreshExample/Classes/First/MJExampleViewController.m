@@ -70,8 +70,14 @@ static NSString *const MJExample30 = @"UIWebView";
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // 结束刷新
             [tableView.mj_header endRefreshing];
+            
+            NSLog(@"%slastUpdatedTime:%@", __func__, tableView.mj_header.lastUpdatedTime);
+            
+            NSLog(@"%s ignoredScrollViewContentInsetTop%@", __func__, @(tableView.mj_header.ignoredScrollViewContentInsetTop));
+
         });
     }];
+
     
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     tableView.mj_header.automaticallyChangeAlpha = YES;
