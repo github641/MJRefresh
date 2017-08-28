@@ -11,6 +11,13 @@
 @implementation MJChiBaoZiHeader
 #pragma mark - 重写方法
 #pragma mark 基本设置
+
+/* lzy170828注:
+ 
+ 前一个父类的prepare方法中，只有
+ // 初始化间距
+ self.labelLeftInset = 20;
+ */
 - (void)prepare
 {
     [super prepare];

@@ -6,7 +6,9 @@
 //  Created by MJ Lee on 15/3/4.
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //
-
+/* lzy170828注:
+ 每一个cell点击之后，跳转的页面。具体创建 刷新，并处理刷新逻辑的具体类
+ */
 #import <UIKit/UIKit.h>
 
 @interface MJTableViewController : UITableViewController

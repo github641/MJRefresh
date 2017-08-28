@@ -7,6 +7,10 @@
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //
 
+/* lzy170828注:
+ 本类，是app启动后的主页。
+ */
+
 #import "MJExampleViewController.h"
 #import "MJTableViewController.h"
 #import "MJWebViewViewController.h"
@@ -30,9 +34,13 @@ static NSString *const MJExample30 = @"UIWebView";
 {
     if (!_examples) {
         MJExample *exam0 = [[MJExample alloc] init];
+        // lzy170828注：这是分区头部文字
         exam0.header = MJExample00;
+        // lzy170828注：这是点击该cell，跳转到哪个控制器
         exam0.vcClass = [MJTableViewController class];
+        // lzy170828注：这是该分区cell的title
         exam0.titles = @[@"默认", @"动画图片", @"隐藏时间", @"隐藏状态和时间", @"自定义文字", @"自定义刷新控件"];
+        // lzy170828注：每个cell对应将调用的 刷新方法
         exam0.methods = @[@"example01", @"example02", @"example03", @"example04", @"example05", @"example06"];
         
         MJExample *exam1 = [[MJExample alloc] init];

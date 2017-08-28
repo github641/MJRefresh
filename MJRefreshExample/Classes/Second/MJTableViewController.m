@@ -7,6 +7,10 @@
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //
 
+/* lzy170828注:
+ 每一个cell点击之后，跳转的页面。具体创建 刷新，并处理刷新逻辑的具体类
+ */
+
 #import "MJTableViewController.h"
 #import "UIView+MJExtension.h"
 #import "MJTestViewController.h"
@@ -20,6 +24,7 @@
 #import "MJDIYHeader.h"
 #import "MJDIYAutoFooter.h"
 #import "MJDIYBackFooter.h"
+#import "MJRefreshStateHeader.h"
 
 static const CGFloat MJDuration = 2.0;
 /**
@@ -40,7 +45,12 @@ static const CGFloat MJDuration = 2.0;
     __weak __typeof(self) weakSelf = self;
     
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [weakSelf loadNewData];
+//    }];
+    
+    
+    self.tableView.mj_header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [weakSelf loadNewData];
     }];
     
