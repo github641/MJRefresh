@@ -125,6 +125,16 @@
     }
 }
 // lzy170828注：完全重写
+/* lzy170829注:
+ 不是完全重写，都是部分重写，先或者后调用父类的方法。
+ 这个方法的父类方法的调用在宏里面：
+ // 状态检查
+ #define MJRefreshCheckState \
+ MJRefreshState oldState = self.state; \
+ if (state == oldState) return; \
+ [super setState:state];
+ */
+
 - (void)setState:(MJRefreshState)state
 {
     MJRefreshCheckState

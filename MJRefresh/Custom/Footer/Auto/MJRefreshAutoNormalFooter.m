@@ -18,6 +18,7 @@
 {
     if (!_loadingView) {
         UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:self.activityIndicatorViewStyle];
+        // lzy170829注：这个属性很重要
         loadingView.hidesWhenStopped = YES;
         [self addSubview:_loadingView = loadingView];
     }

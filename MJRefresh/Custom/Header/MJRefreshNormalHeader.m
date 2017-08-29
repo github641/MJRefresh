@@ -54,6 +54,7 @@
 }
 
 #pragma mark - 重写父类的方法
+// lzy170829注：MJRefreshComponent中定义的这个方法，在每一层，几乎都有调用不同的内容。
 - (void)prepare
 {
     [super prepare];

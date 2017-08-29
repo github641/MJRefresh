@@ -56,6 +56,14 @@
 #pragma mark - 日历获取在9.x之后的系统使用currentCalendar会出异常。在8.0之后使用系统新API。
 - (NSCalendar *)currentCalendar {
     if ([NSCalendar respondsToSelector:@selector(calendarWithIdentifier:)]) {
+        /* lzy170828注:
+         Creates and returns a new NSCalendar object specified by a given identifier.
+         The returned calendar defaults to the current locale and default time zone.
+         
+        返回值为 The initialized calendar, or nil if the identifier is unknown (if, for example, it is either an unrecognized string or the calendar is not supported by the current version of the operating system).
+         
+         iOS8.0+
+         */
         return [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     }
     return [NSCalendar currentCalendar];
