@@ -6,7 +6,28 @@
 //  Created by MJ Lee on 15/3/4.
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //
+/* lzy170830注:
 
+ - (void)layoutSubviews
+ - (void)willMoveToSuperview:(nullable UIView *)newSuperview;
+ - (void)didMoveToSuperview;
+ - (void)willMoveToWindow:(nullable UIWindow *)newWindow;
+ - (void)didMoveToWindow;
+ 
+ 作者：魔鬼分界线
+ 链接：http://www.jianshu.com/p/9d98fad685c8
+
+ MJRefreshComponent类中实现的方法的调用顺序：
+ - initWithFrame
+     - (void)prepare
+     - (void)setState:
+ - (void)willMoveToSuperview:
+     【设置自身的width、x】、【对scrollView的contentOffset、contentSize、state添加监听】
+ - (void)layoutSubviews
+     - (void)placeSubviews
+ - (void)drawRect:
+ 
+ */
 #import "MJRefreshComponent.h"
 #import "MJRefreshConst.h"
 
@@ -88,8 +109,29 @@
     NSKeyValueObservingOptions options = NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld;
     [self.scrollView addObserver:self forKeyPath:MJRefreshKeyPathContentOffset options:options context:nil];
     [self.scrollView addObserver:self forKeyPath:MJRefreshKeyPathContentSize options:options context:nil];
+    /* lzy170830注:
+     一、持有scrollView的pan手势
+     scrollView自己内建了很多手势，而且开放了对应的api
+     panGestureRecognizer
+     pinchGestureRecognizer
+     directionalPressGestureRecognizer
+     UIScrollViewKeyboardDismissMode
+     refreshControl
+     详情看头文件
+     
+     二、对手势的state添加监听
+     state是UIGestureRecognizerState，所有的gesture都带有的状态
+     UIGestureRecognizerStatePossible
+     UIGestureRecognizerStateBegan
+     UIGestureRecognizerStateChanged
+     UIGestureRecognizerStateEnded
+     UIGestureRecognizerStateCancelled
+     UIGestureRecognizerStateFailed
+     UIGestureRecognizerStateRecognized = UIGestureRecognizerStateEnded // the recognizer has received touches recognized as the gesture. the action method will be called at the next turn of the run loop and the recognizer will be reset to UIGestureRecognizerStatePossible
+    */
     self.pan = self.scrollView.panGestureRecognizer;
     [self.pan addObserver:self forKeyPath:MJRefreshKeyPathPanState options:options context:nil];
+    
 }
 
 - (void)removeObservers
@@ -118,7 +160,7 @@
         [self scrollViewPanStateDidChange:change];
     }
 }
-
+// lzy170830注：交给子类们去实现
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change{}
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change{}
 - (void)scrollViewPanStateDidChange:(NSDictionary *)change{}

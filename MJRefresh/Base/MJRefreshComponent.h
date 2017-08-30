@@ -35,6 +35,7 @@ typedef void (^MJRefreshComponentbeginRefreshingCompletionBlock)();
 /** 结束刷新后的回调 */
 typedef void (^MJRefreshComponentEndRefreshingCompletionBlock)();
 
+// lzy170830注：继承自UIView
 /** 刷新控件的基类 */
 @interface MJRefreshComponent : UIView
 {

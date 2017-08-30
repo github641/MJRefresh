@@ -33,6 +33,11 @@
 {
     [super prepare];
     
+    /* lzy170830注:
+     1、虽然lastUpdatedTimeKey对外暴露，此处却设置了默认的key
+     2、默认的view的高度
+     父类实现的- (void)willMoveToSuperview:方法中，设置了self的x坐标和width
+     */
     // 设置key
     self.lastUpdatedTimeKey = MJRefreshHeaderLastUpdatedTimeKey;
     
