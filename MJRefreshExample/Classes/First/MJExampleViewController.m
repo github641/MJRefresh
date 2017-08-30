@@ -70,6 +70,10 @@ static NSString *const MJExample30 = @"UIWebView";
 {
     [super viewDidLoad];
     
+    static const char MJRefreshFooterKey = '\0';
+    static const char MJRefreshHeaderKey = '\0';
+    NSLog(@"%c", MJRefreshFooterKey);
+    
     __unsafe_unretained UITableView *tableView = self.tableView;
     
     // 下拉刷新

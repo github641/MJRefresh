@@ -26,7 +26,7 @@
 #import "MJDIYBackFooter.h"
 #import "MJRefreshStateHeader.h"
 
-static const CGFloat MJDuration = 1.0;
+static const CGFloat MJDuration = 0.3;
 /**
  * 随机数据
  */
@@ -351,6 +351,8 @@ static const CGFloat MJDuration = 1.0;
         
         // 拿到当前的下拉刷新控件，结束刷新状态
         [tableView.mj_header endRefreshing];
+        
+        NSLog(@"%s mj_totalDataCount:%@", __func__, @(tableView.mj_totalDataCount));
     });
 }
 

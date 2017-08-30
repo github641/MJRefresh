@@ -15,6 +15,11 @@
     static NSBundle *refreshBundle = nil;
     if (refreshBundle == nil) {
         // 这里不使用mainBundle是为了适配pod 1.x和0.x
+        /* lzy170830注:
+         这个是第一次见到这样使用。 通过path和resource、type来加载资源是正常流程，只是path本身是通过获取『与资源.bundle在同一个文件夹下的类MJRefresh』所在的NSBundle对象，得到的。
+         NSBundle似乎应该是一个封装了路径等概念的对象，多理解下NSBundle的概念
+         */
+        
         refreshBundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[MJRefreshComponent class]] pathForResource:@"MJRefresh" ofType:@"bundle"]];
     }
     return refreshBundle;
@@ -34,6 +39,7 @@
     return [self mj_localizedStringForKey:key value:nil];
 }
 
+// lzy170830注：本地化从没有做过，倒是看过一点儿文章，下面方法仔细看了下
 + (NSString *)mj_localizedStringForKey:(NSString *)key value:(NSString *)value
 {
     static NSBundle *bundle = nil;

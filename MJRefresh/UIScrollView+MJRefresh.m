@@ -51,6 +51,20 @@ static const char MJRefreshHeaderKey = '\0';
 }
 
 #pragma mark - footer
+/* lzy170830注:
+ 对比header处的：
+ static const char MJRefreshHeaderKey = '\0';
+key需要是唯一，这两个key是否可能相同呢?
+ 
+ (lldb) p MJRefreshHeaderKey
+ error: Couldn't materialize: couldn't get the value of variable MJRefreshHeaderKey: read memory from 0x2489 failed
+ error: errored out in DoExecute, couldn't PrepareToExecuteJITExpression
+ (lldb) p MJRefreshFooterKey
+ error: Couldn't materialize: couldn't get the value of variable MJRefreshFooterKey: read memory from 0x2488 failed
+ error: errored out in DoExecute, couldn't PrepareToExecuteJITExpression
+ 
+ 他们的内存地址是不同的。而且没有记错的话\0，是C语言中数组结束的标识？？？还是一小块内存连续地址结束的标识？？？
+ */
 static const char MJRefreshFooterKey = '\0';
 - (void)setMj_footer:(MJRefreshFooter *)mj_footer
 {
@@ -96,6 +110,10 @@ static const char MJRefreshFooterKey = '\0';
 #pragma mark - other
 - (NSInteger)mj_totalDataCount
 {
+    /* lzy170830注:
+     计算scrollView的数据个数。分别对tableView和collectionView进行处理。
+     都是遍历每一个分区，取每一个分区中的row(item)个数相加
+     */
     NSInteger totalCount = 0;
     if ([self isKindOfClass:[UITableView class]]) {
         UITableView *tableView = (UITableView *)self;
@@ -132,6 +150,7 @@ static const char MJRefreshReloadDataBlockKey = '\0';
 }
 @end
 
+// lzy170830注：这两个方法交换还没有明白他们的用意
 @implementation UITableView (MJRefresh)
 
 + (void)load
