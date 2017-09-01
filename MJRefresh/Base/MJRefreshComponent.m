@@ -21,11 +21,14 @@
  - initWithFrame
      - (void)prepare
      - (void)setState:
- - (void)willMoveToSuperview:
-     【设置自身的width、x】、【对scrollView的contentOffset、contentSize、state添加监听】
+ 
  - (void)layoutSubviews
      - (void)placeSubviews
- - (void)drawRect:
+     - (void)drawRect:
+ 
+ - (void)willMoveToSuperview:
+     【设置自身的width、x】、【对scrollView的contentOffset、contentSize、手势的state添加监听】
+
  
  */
 #import "MJRefreshComponent.h"

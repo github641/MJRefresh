@@ -49,22 +49,40 @@
 {
     [super placeSubviews];
     
+    // lzy170831注：这个Y值的变化，目前只在这个header看到
     // 设置y值(当自己的高度发生改变了，肯定要重新调整Y值，所以放到placeSubviews方法中设置y值)
     self.mj_y = - self.mj_h - self.ignoredScrollViewContentInsetTop;
+    
 }
 
 - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change
 {
     [super scrollViewContentOffsetDidChange:change];
     
+    #pragma mark - ================== 这个是核心方法 ==================
+
     // 在刷新的refreshing状态
     if (self.state == MJRefreshStateRefreshing) {
         if (self.window == nil) return;
-        
+        /* lzy170901注:
+         self.scrollView.mj_offsetY 是 sv的contentOffset
+         _scrollViewOriginalInset.top 是 sv的contentInset
+         计算并设置需要的『sv的contentInset』，保持『刷新状态』，即用户下拉后，让用户一直看到刷新view，需要控制sv的顶部内边距值。
+         */
         // sectionheader停留解决
+        
+        // lzy170901注：- self.scrollView.mj_offsetY > _scrollViewOriginalInset.top 负数，谁大说明谁的绝对值更小。拿绝对值更小的那个赋值给insetT
         CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top;
+        NSLog(@"%f", - self.scrollView.mj_offsetY);
+        NSLog(@"%f", _scrollViewOriginalInset.top);
+        NSLog(@"%f", insetT);
+
+        // lzy170901注：判断条件self.mj_h + _scrollViewOriginalInset.top和是否为0
         insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top : insetT;
         self.scrollView.mj_insetT = insetT;
+        
+        NSLog(@"%f", self.mj_h + _scrollViewOriginalInset.top);
+
         
         self.insetTDelta = _scrollViewOriginalInset.top - insetT;
         return;
@@ -82,13 +100,35 @@
     // >= -> >
     if (offsetY > happenOffsetY) return;
     
+    /* lzy170901注:
+     如果edgeInset.top = 20，那么sv.contentOffset.y一开始就将是-20；
+     happenOffsetY = -20
+     normal2pullingOffsetY = -20 - 20 = -40
+     正常状态是：拖拽到刷新view整个儿出现，才是开始刷新状态，即临界点。
+     */
     // 普通 和 即将刷新 的临界点
     CGFloat normal2pullingOffsetY = happenOffsetY - self.mj_h;
+    
+    /* lzy170901注:
+     sv.contentOffset.y在拖拽时，负得越来越多，在负方向上偏移得越长，比如 -35
+     
+     happenOffsetY - offsetY = -20 - (-35) = 15
+     pullingPercent = 15 / 20
+     */
     CGFloat pullingPercent = (happenOffsetY - offsetY) / self.mj_h;
     
     if (self.scrollView.isDragging) { // 如果正在拖拽
         self.pullingPercent = pullingPercent;
         if (self.state == MJRefreshStateIdle && offsetY < normal2pullingOffsetY) {
+//            NSLog(@"%f####%f", offsetY, normal2pullingOffsetY);
+            /* lzy170901注:
+             -118.500000####-118.000000 界面上是直接变成 正在刷新了
+             此处变为MJRefreshStatePulling状态，而后，在进入这个方法，会直接到下面的判断中，开始刷新
+             if (self.state == MJRefreshStatePulling) {// 即将刷新 && 手松开
+                 // 开始刷新
+                 [self beginRefreshing];
+             }
+             */
             // 转为即将刷新状态
             self.state = MJRefreshStatePulling;
         } else if (self.state == MJRefreshStatePulling && offsetY >= normal2pullingOffsetY) {
@@ -129,6 +169,7 @@
             }
         }];
     } else if (state == MJRefreshStateRefreshing) {
+        // lzy170901注：这是exam0中，点击之后自动刷新，自动下拉动画的实际控制代码。刷新状态保持刷新view可见。
          dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:MJRefreshFastAnimationDuration animations:^{
                 CGFloat top = self.scrollViewOriginalInset.top + self.mj_h;

@@ -26,7 +26,7 @@
 #import "MJDIYBackFooter.h"
 #import "MJRefreshStateHeader.h"
 
-static const CGFloat MJDuration = 0.3;
+static const CGFloat MJDuration = 3.3;
 /**
  * 随机数据
  */
@@ -47,7 +47,7 @@ static const CGFloat MJDuration = 0.3;
     __weak __typeof(self) weakSelf = self;
     
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
         [weakSelf loadNewData];
     }];
     

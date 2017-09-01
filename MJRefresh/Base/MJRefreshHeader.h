@@ -7,6 +7,24 @@
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //  下拉刷新控件:负责监控用户下拉的状态
 
+/* lzy170901注:
+ 这个view，还没有任何的子视图。只是在这个视图中，处理整个容器的交互。
+ 
+ - (void)scrollViewContentOffsetDidChange:(NSDictionary *)change
+
+ 这个监听sv的偏移值的回调方法中
+ 1、 计算了需要多少高度，设置到sv的上内边距，可以让刷新视图出现和消失
+ 2、定义了普通状态、刷新临界点，
+ 3、结合拖拽程度（sv.contentOffset.y）与当前state，处理状态转换与状态通知
+ 普通状态 <--> 刷新的临界点
+ 目前拖拽程度占整个拖拽的百分比。
+
+ 
+  - (void)setState:(MJRefreshState)state
+ 根据不同的状态做不同的事情
+
+ */
+
 #import "MJRefreshComponent.h"
 
 @interface MJRefreshHeader : MJRefreshComponent
