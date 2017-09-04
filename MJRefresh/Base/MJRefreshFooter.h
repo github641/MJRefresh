@@ -7,6 +7,8 @@
 //  Copyright (c) 2015年 小码哥. All rights reserved.
 //  上拉刷新控件
 
+
+
 #import "MJRefreshComponent.h"
 
 @interface MJRefreshFooter : MJRefreshComponent
@@ -22,6 +24,9 @@
 /** 重置没有更多的数据（消除没有更多数据的状态） */
 - (void)resetNoMoreData;
 
+/* lzy170904注:
+ footer的ignoredScrollViewContentInsetBottom没有实现，可以参考header的忽略边距是怎么做的。
+ */
 /** 忽略多少scrollView的contentInset的bottom */
 @property (assign, nonatomic) CGFloat ignoredScrollViewContentInsetBottom;
 

@@ -14,6 +14,9 @@
 @implementation MJRefreshAutoFooter
 
 #pragma mark - 初始化
+/* lzy170904注:
+  2、设置完y之后，还在，- (void)willMoveToSuperview:(UIView *)newSuperview设置了sv的contentInset.bottom，使得正常往上拖动的内容，不需要sv bounce的情况下，就能让刷新view可见
+ */
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];

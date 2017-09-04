@@ -35,7 +35,7 @@
     
     /* lzy170830注:
      1、虽然lastUpdatedTimeKey对外暴露，此处却设置了默认的key
-     2、默认的view的高度
+     2、默认的view的高度，默认高度54
      父类实现的- (void)willMoveToSuperview:方法中，设置了self的x坐标和width
      */
     // 设置key
@@ -73,15 +73,15 @@
         
         // lzy170901注：- self.scrollView.mj_offsetY > _scrollViewOriginalInset.top 负数，谁大说明谁的绝对值更小。拿绝对值更小的那个赋值给insetT
         CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top;
-        NSLog(@"%f", - self.scrollView.mj_offsetY);
-        NSLog(@"%f", _scrollViewOriginalInset.top);
-        NSLog(@"%f", insetT);
+//        NSLog(@"%f", - self.scrollView.mj_offsetY);
+//        NSLog(@"%f", _scrollViewOriginalInset.top);
+//        NSLog(@"%f", insetT);
 
         // lzy170901注：判断条件self.mj_h + _scrollViewOriginalInset.top和是否为0
         insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top : insetT;
         self.scrollView.mj_insetT = insetT;
         
-        NSLog(@"%f", self.mj_h + _scrollViewOriginalInset.top);
+//        NSLog(@"%f", self.mj_h + _scrollViewOriginalInset.top);
 
         
         self.insetTDelta = _scrollViewOriginalInset.top - insetT;

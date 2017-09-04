@@ -68,6 +68,12 @@
     }
 }
 
+/* lzy170904注:
+ 这是监听到contentSize变化的回调。
+ 之前的header没有看到过这个方法。
+ 设置了self.mj_y。
+ header是在-placeSubviews中设置的（设置y值(当自己的高度发生改变了，肯定要重新调整Y值，所以放到placeSubviews方法中设置y值)）。
+ */
 - (void)scrollViewContentSizeDidChange:(NSDictionary *)change
 {
     [super scrollViewContentSizeDidChange:change];
@@ -108,6 +114,10 @@
             self.scrollView.mj_offsetY = self.scrollView.mj_offsetY;
         }
     } else if (state == MJRefreshStateRefreshing) {
+        
+        /* lzy170904注:
+         footer多了 是否有数据的状态提示 ，所以需要记录数据个数。
+         */
         // 记录刷新前的数量
         self.lastRefreshCount = self.scrollView.mj_totalDataCount;
         

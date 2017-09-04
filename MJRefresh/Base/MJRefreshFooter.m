@@ -33,6 +33,10 @@
 {
     [super prepare];
     
+    /* lzy170904注:
+     默认的view的高度
+     父类实现的- (void)willMoveToSuperview:方法中，设置了self的x坐标和width
+     */
     // 设置自己的高度
     self.mj_h = MJRefreshFooterHeight;
     
@@ -40,6 +44,7 @@
     self.automaticallyHidden = NO;
 }
 
+// lzy170904注：自动根据有无数据来显示和隐藏 的处理
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];

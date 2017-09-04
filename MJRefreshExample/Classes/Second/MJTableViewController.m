@@ -26,7 +26,7 @@
 #import "MJDIYBackFooter.h"
 #import "MJRefreshStateHeader.h"
 
-static const CGFloat MJDuration = 3.3;
+static const CGFloat MJDuration = 0.3;
 /**
  * 随机数据
  */
@@ -47,7 +47,7 @@ static const CGFloat MJDuration = 3.3;
     __weak __typeof(self) weakSelf = self;
     
     // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
-    self.tableView.mj_header = [MJRefreshHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf loadNewData];
     }];
     
@@ -144,10 +144,6 @@ static const CGFloat MJDuration = 3.3;
 }
 
 
-    /* TODO: #待完成# 
-     
-     直接继承自MJRefreshHeader的先不看
-     */
 #pragma mark UITableView + 下拉刷新 自定义刷新控件
 - (void)example06
 {
@@ -189,9 +185,6 @@ static const CGFloat MJDuration = 3.3;
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MJChiBaoZiFooter *footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
-        /* TODO: #待完成# 
-         下面的类似自动进入刷新状态的特性，具体是在父类MJRefreshAutoFooter中
-         */
     // 当上拉刷新控件出现50%时（出现一半），就会自动刷新。这个值默认是1.0（也就是上拉刷新100%出现时，才会自动刷新）
     //    footer.triggerAutomaticallyRefreshPercent = 0.5;
     
@@ -237,9 +230,6 @@ static const CGFloat MJDuration = 3.3;
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
-        /* TODO: #待完成# 
-         在父类MJRefreshAutoFooter中定义的
-         */
     // 禁止自动加载
     footer.automaticallyRefresh = NO;
     
@@ -297,9 +287,9 @@ static const CGFloat MJDuration = 3.3;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     // 设置了底部inset
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
-        /* TODO: #待完成# 
-         ignoredScrollViewContentInsetBottom来自MJRefreshFooter
-         */
+    /* lzy170904注:
+     footer的ignoredScrollViewContentInsetBottom没有实现，可以参考header的忽略边距是怎么做的。
+     */
     // 忽略掉底部inset
     self.tableView.mj_footer.ignoredScrollViewContentInsetBottom = 30;
 }
@@ -318,8 +308,7 @@ static const CGFloat MJDuration = 3.3;
 - (void)example20
 {
     [self example01];
-        /* TODO: #待完成#DIY
-         */
+
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     self.tableView.mj_footer = [MJDIYAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
@@ -328,8 +317,7 @@ static const CGFloat MJDuration = 3.3;
 - (void)example21
 {
     [self example01];
-    /* TODO: #待完成#DIY
-     */
+
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadMoreData方法）
     self.tableView.mj_footer = [MJDIYBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
